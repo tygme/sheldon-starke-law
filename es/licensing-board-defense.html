@@ -25,19 +25,19 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="alternate" hreflang="en" href="../licensing-board-defense.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Manrope:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Manrope:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido principal</a>
 <div class="utility"><div class="wrap">
   <span class="utility-left">Admitido en Ohio &middot; Florida &middot; Nueva York &middot; Corte Suprema de los Estados Unidos</span>
-  <span class="utility-right"><a class="tel" href="tel:+12162443423">(216) 244-3423</a><a class="lang " href="../licensing-board-defense.html" hreflang="en" lang="en"><span class="lang-long">English &middot; </span><u>View in English</u></a></span>
+  <span class="utility-right"><a class="util-cta" href="contact.html">Enviar mensaje</a><a class="tel" href="tel:+12162443423">(216) 244-3423</a><a class="lang " href="../licensing-board-defense.html" hreflang="en" lang="en"><span class="lang-long">English &middot; </span><u>View in English</u></a></span>
 </div></div>
 <header class="masthead"><div class="wrap">
   <a class="wordmark" href="index.html"><img class="seal" src="../img/seal.webp" alt="" width="64" height="64"><span class="wm-text"><b>Sheldon P. Starke</b><span>Abogado y Consejero Legal</span></span></a>
-  <nav class="nav wide" aria-label="Principal"><a href="index.html">Inicio</a><a href="about.html">Trayectoria</a><a href="mentorship.html">Mentoría</a><a href="entertainment-law.html">Entretenimiento</a><a href="employment-law.html">Derecho Laboral</a><a href="licensing-board-defense.html" aria-current="page">Licencias Profesionales</a><a href="client-words.html">Testimonios</a><a href="contact.html">Contacto</a></nav>
-  <details class="menu"><summary>Menú</summary><nav class="nav " aria-label="Principal"><a href="index.html">Inicio</a><a href="about.html">Trayectoria</a><a href="mentorship.html">Mentoría</a><a href="entertainment-law.html">Entretenimiento</a><a href="employment-law.html">Derecho Laboral</a><a href="licensing-board-defense.html" aria-current="page">Licencias Profesionales</a><a href="client-words.html">Testimonios</a><a href="contact.html">Contacto</a><a class="tel" href="tel:+12162443423">(216) 244-3423</a></nav></details>
+  <nav class="nav wide" aria-label="Principal"><a href="index.html">Inicio</a><a href="about.html">Trayectoria</a><a href="mentorship.html">Mentoría</a><a href="entertainment-law.html">Entretenimiento<small>Todo EE. UU.</small></a><a href="employment-law.html">Derecho Laboral<small>OH y FL</small></a><a href="licensing-board-defense.html" aria-current="page">Licencias Profesionales<small>OH y FL</small></a><a href="client-words.html">Testimonios</a><a href="contact.html">Contacto</a></nav>
+  <details class="menu"><summary>Menú</summary><nav class="nav " aria-label="Principal"><a href="index.html">Inicio</a><a href="about.html">Trayectoria</a><a href="mentorship.html">Mentoría</a><a href="entertainment-law.html">Entretenimiento<small>Todo EE. UU.</small></a><a href="employment-law.html">Derecho Laboral<small>OH y FL</small></a><a href="licensing-board-defense.html" aria-current="page">Licencias Profesionales<small>OH y FL</small></a><a href="client-words.html">Testimonios</a><a href="contact.html">Contacto</a><a class="tel" href="tel:+12162443423">(216) 244-3423</a></nav></details>
 </div></header>
 <main id="main" tabindex="-1"><section class="page-head"><div class="wrap">
   <p class="label accent">Licencias profesionales &middot; Ohio y Florida</p><h1>Proteja la licencia que le tomó toda una carrera obtener</h1><p class="lede">Una queja o investigación de una junta de licencias puede cambiar una vida profesional. Contar con un abogado con experiencia desde el primer contacto protege sus credenciales, su carrera y su reputación.</p>
@@ -122,6 +122,13 @@
   addEventListener('pageshow', toTop);
   // Hand restoration back to the browser on the way out, so returning here with Back lands where the visitor was.
   addEventListener('pagehide', function () { if ('scrollRestoration' in history) history.scrollRestoration = 'auto'; });
+  // Testimonial ribbon: hover or keyboard focus pauses it; the button stops it for good (WCAG 2.2.2).
+  document.querySelectorAll('.ribbon-pause').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var paused = b.closest('.ribbon').classList.toggle('paused');
+      b.setAttribute('aria-pressed', paused); b.textContent = paused ? b.dataset.play : b.dataset.pause;
+    });
+  });
   var form = document.getElementById('contact-form');
   if (!form) return;
   // Set FORM_ENDPOINT to a form service URL (e.g. Formspree) when hosting.

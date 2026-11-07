@@ -434,3 +434,146 @@ main > section:nth-of-type(n+9) { background-color: var(--g9); }
   font: 600 0.9rem/1 var(--sans); text-decoration: none; }
 .skip:focus { top: 12px; }
 main:focus { outline: none; }
+
+/* ============================================================================================
+   Sandbox "formidable": the lettering of the law itself. Roman inscription capitals (as carved on
+   courthouse friezes) for the name and labels, a law-book Baskerville for headlines, a sturdy reading
+   serif for text. Deeper ink, heavier rules, nothing delicate.
+   ============================================================================================ */
+:root {
+  --display: "Libre Baskerville", Baskerville, "Baskerville Old Face", Georgia, serif;
+  --serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  --caps: "Cinzel", "Trajan Pro", "Libre Baskerville", Georgia, serif;
+  --ink: #0e1117;
+  --ink-2: #3b404a;
+  --rule: #d2cec5;
+}
+body { font: 400 17.5px/1.7 var(--serif); }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.012em; }
+h1 { font-size: clamp(2.2rem, 4.6vw, 3.35rem); line-height: 1.14; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); line-height: 1.22; }
+h3 { font-family: var(--display); font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: 0; }
+.hero h1 em { font-style: italic; }
+.lede { font-family: var(--serif); font-weight: 400; font-size: 1.28rem; line-height: 1.6; }
+
+/* labels and eyebrows: inscription capitals */
+.label { font: 600 0.8rem/1.3 var(--caps); letter-spacing: 0.2em; }
+.label.accent { color: var(--accent); }
+
+/* masthead: an engraved nameplate under a double rule, like a bar certificate */
+.masthead { border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink); }
+.wordmark b { font: 700 1.5rem/1 var(--caps); letter-spacing: 0.12em; }
+.wordmark .wm-text > span { font: 600 0.66rem/1.3 var(--caps); letter-spacing: 0.24em; }
+.nav { font: 500 0.92rem/1 var(--sans); }
+
+/* the seal band's inscription and the slogan, carved rather than written */
+.inscription span { font: 700 clamp(1.05rem, 1.8vw, 1.5rem)/1.3 var(--caps); letter-spacing: 0.2em; }
+.slogan .roles { font-family: var(--caps); font-weight: 700; letter-spacing: 0.16em; }
+.slogan .coda { font-family: var(--display); }
+
+/* firmer structure: heavier column rules and figures set in the headline face */
+.practice, .service-grid > div, .aside section { border-top-width: 3px; border-top-color: var(--ink); }
+.principles > div { border-top: 3px solid var(--ink); }
+.principles .label { font: italic 400 1.45rem/1.15 var(--display); letter-spacing: 0; text-transform: none; color: var(--ink); }
+.admissions strong { font: 700 2.3rem/1 var(--display); }
+.matters .case { font-family: var(--display); font-size: 1.04rem; }
+.quote blockquote { font-family: var(--serif); font-size: 1.12rem; }
+.quote.feature blockquote { font-family: var(--display); font-size: 1.32rem; line-height: 1.55; }
+.btn { font: 700 0.8rem/1 var(--sans); letter-spacing: 0.14em; border-width: 2px; }
+.btn.solid { background: var(--ink); border-color: var(--ink); color: #fff; }
+.btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+.band h2 { font-family: var(--display); }
+.steps li::before { font: 700 1.15rem/1 var(--display); border-width: 2px; }
+.steps h3 { font: 700 1.12rem/1.3 var(--display); }
+.faq summary { font: 400 1.12rem/1.4 var(--display); }
+/* the engraved nameplate is wider, so the full menu needs a little more room before it folds into MENU */
+.nav.wide { gap: 20px; font-size: 0.88rem; }
+@media (max-width: 1300px) { .masthead .nav.wide { display: none; } .menu { display: block; } }
+
+/* ---------------- v17 ---------------- */
+/* Testimonial ribbon: a navy band of verbatim excerpts drifting slowly; hover, focus or the button stops it */
+.ribbon { --paper: #152238; --ink: #f3efe7; --ink-2: #c4beb2; --rule: #34363b; --accent: #e2c08a; --bronze: #b98d55;
+  background: var(--paper); color: var(--ink); border-block: 1px solid #0b1424; padding-block: 34px 18px; overflow: hidden; }
+.ribbon-viewport { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.ribbon-track { display: flex; width: max-content; animation: ribbon var(--ribbon-dur, 400s) linear infinite; }
+.ribbon ul { list-style: none; margin: 0; padding: 0; display: flex; }
+.ribbon li { display: grid; gap: 8px; align-content: start; width: 25rem; max-width: 80vw; padding: 0 2.4rem; border-left: 1px solid var(--rule); }
+.ribbon q { font: italic 400 1.15rem/1.45 var(--display); color: var(--ink); quotes: "\201C" "\201D"; }
+.ribbon li span { font: 600 0.72rem/1.3 var(--caps); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.ribbon:hover .ribbon-track, .ribbon:focus-within .ribbon-track, .ribbon.paused .ribbon-track { animation-play-state: paused; }
+.ribbon-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 22px; }
+.ribbon-foot a { font: 600 0.8rem/1 var(--caps); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+.ribbon-pause { font: 600 0.72rem/1 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);
+  background: none; border: 1px solid var(--rule); padding: 8px 12px; cursor: pointer; }
+.ribbon-pause:hover { color: var(--ink); border-color: var(--ink-2); }
+@keyframes ribbon { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-track { animation: none; } .ribbon-viewport { overflow-x: auto; } .ribbon-track ul[aria-hidden] { display: none; }
+  .ribbon-pause { display: none; }
+}
+
+/* Header call to action beside the phone number */
+.util-cta { font: 700 0.72rem/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+  padding: 8px 12px; background: var(--accent); color: #fff; }
+.util-cta:hover { color: #fff; background: var(--ink); }
+@media (max-width: 640px) { .util-cta { display: none; } }
+
+/* Each practice's reach, set small beneath its name in the menu */
+.nav a small { display: block; font: 600 0.58rem/1.2 var(--caps); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-top: 3px; }
+.nav.wide { align-items: flex-start; }
+.nav.wide a { text-align: center; }
+.menu .nav a small { display: inline; margin: 0 0 0 8px; }
+main > section.ribbon { background-color: #152238; }
+
+/* ---------------- v18: Google reviews ---------------- */
+.ribbon-links { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.google-reviews { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 56px; padding: 28px 32px;
+  border: 1px solid var(--rule); border-top: 3px solid var(--ink); background: var(--paper); }
+.google-reviews .stars { color: var(--accent); font-size: 1.35rem; letter-spacing: 0.12em; }
+.google-reviews p { flex: 1 1 18rem; font: 400 1.15rem/1.4 var(--display); }
+
+/* ---------------- v19: Google rating ---------------- */
+.rating-google { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule);
+  text-decoration: none; color: var(--ink-2); font-size: 0.86rem; }
+.rating-google b { font: 700 1.2rem/1 var(--display); color: var(--ink); }
+.rating-google:hover { color: var(--accent); }
+.g-stars { color: var(--accent); letter-spacing: 0.08em; font-size: 1.05rem; white-space: nowrap; }
+.g-summary { flex: 1 1 22rem; display: grid; gap: 6px; }
+.g-score { font: 400 1.3rem/1.3 var(--display); }
+.g-score b { font-weight: 700; font-size: 1.6rem; }
+.g-topics { color: var(--ink-2); line-height: 1.6; }
+.g-topics span { font: 600 0.74rem/1 var(--caps); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); margin-right: 6px; }
+.g-asof { font-size: 0.8rem; color: var(--ink-2); }
+
+/* ---------------- v20: one quiet line tying the principles to what clients say on Google ---------------- */
+.principles-voice { max-width: 46rem; font: italic 400 1.18rem/1.55 var(--display); color: var(--ink-2); }
+.principles-voice a { color: var(--ink); text-decoration-color: var(--accent); }
+
+/* ---------------- v22: act from the first screen ---------------- */
+/* The inscription and the two buttons travel together, placed under the seal by intro.js's --row-top. */
+.intro-lower {
+  position: absolute; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+  top: var(--row-top, 72%); display: grid; justify-items: center; gap: 26px;
+  opacity: calc(1 - var(--p, 0) * 2.6); transform: translateY(calc(var(--p, 0) * -30px));
+}
+.intro-lower .inscription { position: static; opacity: 1; transform: none; }
+.intro-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; animation: seal-rise .9s 2s both; }
+.intro-cta .btn { border-color: var(--accent); color: var(--ink); background: rgba(21,34,56,.55); }
+.intro-cta .intro-call { background: var(--accent); color: #14161a; font-variant-numeric: lining-nums; }
+.intro-cta .btn:hover { background: var(--ink); color: #14161a; border-color: var(--ink); }
+.intro-stage:has(.intro-cta) .cue { display: none; }
+@media (max-width: 640px) {
+  .intro-stage { min-height: 620px; }
+  .intro-lower { gap: 20px; }
+  .intro-cta { flex-wrap: nowrap; gap: 10px; width: 100%; max-width: 380px; }
+  .intro-cta .btn { flex: 1 1 0; justify-content: center; padding: 14px 10px; }
+  .intro-cta .num { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .intro-cta { animation: none; } }
+@media (max-width: 640px) {
+  .intro-stage { min-height: 640px; }
+  .inscription span { font-size: 0.98rem; letter-spacing: 0.14em; }
+}
+.quote .g-more { font: 600 0.78rem/1 var(--sans); letter-spacing: 0.06em; color: var(--accent); white-space: nowrap; text-decoration: none; margin-left: 4px; }
+.quote .g-more:hover { text-decoration: underline; }
