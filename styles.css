@@ -577,3 +577,28 @@ main > section.ribbon { background-color: #152238; }
 }
 .quote .g-more { font: 600 0.78rem/1 var(--sans); letter-spacing: 0.06em; color: var(--accent); white-space: nowrap; text-decoration: none; margin-left: 4px; }
 .quote .g-more:hover { text-decoration: underline; }
+
+/* ---------------- v24: the strip steps one quote at a time and can be driven by hand ---------------- */
+.ribbon { padding-block: 40px 20px; }
+.ribbon-viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-mask-image: none; mask-image: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent);
+  scroll-padding-left: max(24px, calc((100vw - var(--wrap)) / 2 + 24px)); }
+.ribbon-viewport::-webkit-scrollbar { display: none; }
+.ribbon-viewport:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+.ribbon-list { list-style: none; margin: 0; display: flex; align-items: stretch; position: relative;
+  padding: 0 max(24px, calc((100vw - var(--wrap)) / 2 + 24px)); }
+.ribbon-list li { scroll-snap-align: start; flex: 0 0 auto; width: max-content; min-width: 12rem; max-width: 24rem;
+  display: grid; gap: 10px; align-content: start; padding: 0 2.2rem; border-left: 1px solid var(--rule); }
+.ribbon-list li:first-child { border-left: 0; padding-left: 0; }
+.ribbon-list q { white-space: normal; }
+.ribbon-controls { display: flex; align-items: center; gap: 8px; }
+.ribbon-prev, .ribbon-next { width: 40px; height: 34px; display: grid; place-items: center; cursor: pointer;
+  font: 400 1.5rem/1 var(--display); color: var(--ink); background: none; border: 1px solid var(--rule); }
+.ribbon-prev:hover, .ribbon-next:hover { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 640px) {
+  .ribbon-list li { max-width: 80vw; }
+  .ribbon-foot { flex-wrap: wrap; }
+}
+.ribbon-list { transition: opacity .22s ease; }
+.ribbon.ribbon-turn .ribbon-list { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .ribbon-list { transition: none; } }

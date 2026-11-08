@@ -599,3 +599,6 @@ main > section.ribbon { background-color: #152238; }
   .ribbon-list li { max-width: 80vw; }
   .ribbon-foot { flex-wrap: wrap; }
 }
+.ribbon-list { transition: opacity .22s ease; }
+.ribbon.ribbon-turn .ribbon-list { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .ribbon-list { transition: none; } }

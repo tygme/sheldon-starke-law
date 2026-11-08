@@ -115,12 +115,51 @@
   addEventListener('pageshow', toTop);
   // Hand restoration back to the browser on the way out, so returning here with Back lands where the visitor was.
   addEventListener('pagehide', function () { if ('scrollRestoration' in history) history.scrollRestoration = 'auto'; });
-  // Testimonial ribbon: hover or keyboard focus pauses it; the button stops it for good (WCAG 2.2.2).
-  document.querySelectorAll('.ribbon-pause').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var paused = b.closest('.ribbon').classList.toggle('paused');
-      b.setAttribute('aria-pressed', paused); b.textContent = paused ? b.dataset.play : b.dataset.pause;
-    });
+  // Testimonial strip: steps one quote every 6 s; arrows, swipe and keyboard move it by hand.
+  // Hover, focus and Pause stop the stepping (WCAG 2.2.2); reduced-motion visitors start paused.
+  document.querySelectorAll('.ribbon').forEach(function (r) {
+    var vp = r.querySelector('.ribbon-viewport'), items = [].slice.call(vp.querySelectorAll('li'));
+    var pauseBtn = r.querySelector('.ribbon-pause'), held = false;
+    var stopped = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function setStopped(v) {
+      stopped = v; r.classList.toggle('paused', v);
+      pauseBtn.setAttribute('aria-pressed', v); pauseBtn.textContent = v ? pauseBtn.dataset.play : pauseBtn.dataset.pause;
+    }
+    // Where each quote sits, measured on screen, relative to the strip's resting edge.
+    function offsets() {
+      var pad = parseFloat(getComputedStyle(vp).scrollPaddingLeft) || 0, left = vp.getBoundingClientRect().left + pad;
+      return items.map(function (li) { return Math.round(vp.scrollLeft + li.getBoundingClientRect().left - left); });
+    }
+    function go(dir) {
+      var pos = offsets(), x = vp.scrollLeft, max = vp.scrollWidth - vp.clientWidth, target;
+      if (dir > 0) {
+        var next = pos.filter(function (o) { return o > x + 4; })[0];
+        target = (x >= max - 4 || next === undefined) ? 0 : Math.min(next, max);
+      } else {
+        var prev = pos.filter(function (o) { return o < x - 4; });
+        target = x <= 4 ? max : prev[prev.length - 1];
+      }
+      // Wrapping from one end to the other fades and jumps, rather than rewinding the whole strip.
+      if (Math.abs(target - x) > vp.clientWidth * 1.5) {
+        r.classList.add('ribbon-turn');
+        setTimeout(function () { vp.scrollTo({ left: target, behavior: 'auto' }); r.classList.remove('ribbon-turn'); }, 220);
+      } else {
+        vp.scrollTo({ left: target, behavior: 'smooth' });
+      }
+    }
+    var visible = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { threshold: 0.5 }).observe(r);
+    } else { visible = true; }
+    r.querySelector('.ribbon-next').addEventListener('click', function () { go(1); });
+    r.querySelector('.ribbon-prev').addEventListener('click', function () { go(-1); });
+    pauseBtn.addEventListener('click', function () { setStopped(!stopped); });
+    r.addEventListener('mouseenter', function () { held = true; });
+    r.addEventListener('mouseleave', function () { held = false; });
+    r.addEventListener('focusin', function () { held = true; });
+    r.addEventListener('focusout', function () { held = false; });
+    setStopped(stopped);
+    setInterval(function () { if (!stopped && !held && visible && !document.hidden) go(1); }, 6000);
   });
   var form = document.getElementById('contact-form');
   if (!form) return;

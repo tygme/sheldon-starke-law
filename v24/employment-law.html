@@ -139,7 +139,13 @@
         var prev = pos.filter(function (o) { return o < x - 4; });
         target = x <= 4 ? max : prev[prev.length - 1];
       }
-      vp.scrollTo({ left: target, behavior: 'smooth' });
+      // Wrapping from one end to the other fades and jumps, rather than rewinding the whole strip.
+      if (Math.abs(target - x) > vp.clientWidth * 1.5) {
+        r.classList.add('ribbon-turn');
+        setTimeout(function () { vp.scrollTo({ left: target, behavior: 'auto' }); r.classList.remove('ribbon-turn'); }, 220);
+      } else {
+        vp.scrollTo({ left: target, behavior: 'smooth' });
+      }
     }
     var visible = false;
     if ('IntersectionObserver' in window) {
