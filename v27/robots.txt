@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tygme.github.io/sheldon-starke-law/v27/sitemap.xml
